@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: fsl-challenge
+  namespace: production
+  labels: 
+    app: fsl-challenge
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: fsl-challenge
+  template: 
+    metadata:
+      labels: 
+        app: fsl-challenge
+    spec: 
+      containers:
+        - name: fsl-challenge
+          image: cinthyarondon/devops-callenge:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: MY_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: my-secret
+                  key: MY_SECRET_KEY 
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: fsl-challenge
+  namespace: production
+spec:
+  type: ClusterIP
+  ports: 
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: fsl-challenge
