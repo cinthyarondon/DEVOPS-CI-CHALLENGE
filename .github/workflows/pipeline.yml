@@ -28,7 +28,7 @@ jobs:
         run: npm run lint
 
       - name: Formatter (Prettier)
-        run: npm install -g prettier && npm run prettier
+        run: npm install -g prettier && npm run prettier -- --write
 
       - name: Test (Jest)
         env:
