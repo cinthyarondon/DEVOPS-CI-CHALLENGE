@@ -19,3 +19,44 @@ You can find a live version at the following url:
 [https://rdicidr.rderik.com](https://rdicidr.rderik.com)
 
 If you find this tool useful, you might enjoy reading my blog: [https://rderik.com](https://rderik.com)
+
+# Minikube
+
+Check if Minikube is running:
+```
+minikube status
+```
+
+Initialize the cluster:
+```
+minikube start
+```
+
+List Minikube addons:
+```
+minikube addons list
+```
+
+Enable the Ingress addon:
+```
+minikube addons enable ingress
+```
+
+Get the IP address of Minikube:
+```
+minikube ip
+```
+
+Update the /etc/hosts file on your local machine to point to the external IP address of the Kubernetes cluster.
+```
+sudo nano /etc/hosts
+```
+Add an entry like this:
+```
+<MINIKUBE_IP> fsl-challenge.me
+```
+Replace <MINIKUBE_IP> with the IP address obtained from the minikube ip command.
+
+# Helm
+
+helm create fsl-challenge-test
