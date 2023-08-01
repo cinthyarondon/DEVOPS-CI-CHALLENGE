@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: fsl-challenge
+  name: fsl-challenge-deployment
   namespace: production
   labels: 
     app: fsl-challenge
@@ -32,13 +32,31 @@ spec:
 apiVersion: v1
 kind: Service
 metadata: 
-  name: fsl-challenge
+  name: fsl-challenge-service
   namespace: production
 spec:
-  type: ClusterIP
+  type: NodePort
   ports: 
     - port: 8080
       targetPort: 8080
       protocol: TCP
   selector:
     app: fsl-challenge
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fsl-challenge-ingress
+  namespace: production
+spec: 
+  rules: 
+  - host: fsl-challenge.me
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: fsl-challenge-service
+            port:
+              number: 8080
