@@ -59,4 +59,10 @@ Replace <MINIKUBE_IP> with the IP address obtained from the minikube ip command.
 
 # Helm
 
-helm create fsl-challenge-test
+helm create fsl-challenge-test fsl-challenge-test -n production
+
+helm uninstall fsl-challenge-test -n production
+
+kubectl create secret generic my-secret --from-literal=MY_SECRET=On3H1torL3sS -n production
+
+kubectl port-forward -n production service/<SERVICE_NAME> 9000:8080
